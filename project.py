@@ -90,3 +90,4 @@ class taxi:
         for N in nodes:
             ZoneEmbed.append(model[str(N)])
         ZoneEmbed = np.array(ZoneEmbed)
+        return ZoneEmbed
