@@ -85,7 +85,7 @@ class Embedding:
                 Walk.append(str(item))
             Str_Walks.append(Walk)
 
-        w2v_model = Word2Vec(Str_Walks, size=embedding_size)
+        w2v_model = Word2Vec(Str_Walks, size=self.embedding_size)
     #    w2v_model.save('../data/model')
     #
         model = w2v_model
@@ -98,5 +98,8 @@ class Embedding:
 
 if __name__ == '__main__':
     zone_embedding = Embedding()
+    zone_embedding.spatial_graph()
+    zone_embedding.taxi_flow()
+    zone_embedding.simulate_random_walks()
     emb = zone_embedding.word_to_vec()
-    print(len(emb))
+    print(emb)
