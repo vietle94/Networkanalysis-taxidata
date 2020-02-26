@@ -1,2 +1,12 @@
 # large datafile
 OD_1601.npy
+
+# Emacs backup files
+*.~
+
+# byte code
+__pycache__/
+.ipynb_checkpoints/
+./data/
+
+# local
