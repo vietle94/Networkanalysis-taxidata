@@ -1,5 +1,4 @@
 import numpy as np
-import csv
 import networkx as nx
 import random
 from gensim.models import Word2Vec
@@ -10,6 +9,7 @@ class Embedding:
     """
     Implements an embedding of the graph based on Random Walks.
     """
+
     def __init__(self, time_slot=4, num_walks=1000,
                  walk_length=100, embedding_size=20):
         self.time_slot = time_slot
@@ -18,6 +18,7 @@ class Embedding:
         self.embedding_size = embedding_size
         self.num_zone = 180
         self.Walks = []
+        self.nodes = np.arange(self.num_zone*int(24/self.time_slot))
 
     def spatial_graph(self, path='data/drive_dist.npy'):
         Distance = np.load(path, allow_pickle=True)
@@ -86,7 +87,6 @@ class Embedding:
 
     def word_to_vec(self):
         Str_Walks = []
-        Walks_shape = np.shape(self.Walks)
         for line in self.Walks:
             Walk = []
             for item in line:
@@ -99,10 +99,11 @@ class Embedding:
         model = w2v_model
     #    model = Word2Vec.load('../data/model')
         ZoneEmbed = []
-        for N in nodes:
+        for N in self.nodes:
             ZoneEmbed.append(model[str(N)])
         ZoneEmbed = np.array(ZoneEmbed)
         return ZoneEmbed
+
 
 if __name__ == '__main__':
     print("Create embedding instance")
@@ -113,5 +114,6 @@ if __name__ == '__main__':
     zone_embedding.taxi_flow()
     print("Create random walks")
     zone_embedding.simulate_random_walks()
-#     emb = zone_embedding.word_to_vec()
-#     print(emb)
+    # print("Create embedding")
+    # emb = zone_embedding.word_to_vec()
+    # print(emb)
